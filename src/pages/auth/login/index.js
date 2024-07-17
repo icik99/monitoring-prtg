@@ -71,48 +71,49 @@ export default function LoginPage() {
 
   return (
     <div className="relative h-screen">
-      <Image src={BgLogin} alt="Background Login" layout="fill" objectFit="cover" />
-      <div className="absolute inset-0 flex items-center justify-center px-96 bg-opacity-50">
-        <div className="border p-9 rounded-lg w-full shadow-lg bg-white">
-          <div className="flex items-center justify-between mb-5 border-b-[#b6252a] border-b-2 py-2">
-            <Image src={LogoRed} alt="Logo" width={120} height={120} />
-            <h1 className="text-4xl font-bold text-[#b6252a]">Web Monitoring Jaringan</h1>
-          </div>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
-              <FormField control={form.control} name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg">Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your username" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukan username admin
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField control={form.control} name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg">Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukan password admin
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button className="bg-[#b6252a]" type="submit">Submit</Button>
-            </form>
-          </Form>
-        </div>
+  <Image src={BgLogin} alt="Background Login" layout="fill" objectFit="" />
+  <div className="absolute inset-0 flex justify-end items-end p-5">
+    <div className="border p-9  w-[700px] shadow-lg bg-white">
+      <div className="flex items-center justify-between mb-5 border-b-[#b6252a] border-b-2 py-2">
+        <Image src={LogoRed} alt="Logo" width={120} height={120} />
+        <h1 className="text-4xl font-bold text-[#b6252a]">Web Monitoring Jaringan</h1>
       </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+          <FormField control={form.control} name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg">Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your username" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Masukan username admin
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField control={form.control} name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg">Password</FormLabel>
+                <FormControl>
+                  <Input type="password" placeholder="Enter your password" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Masukan password admin
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button className="bg-[#b6252a]" type="submit">Submit</Button>
+        </form>
+      </Form>
     </div>
+  </div>
+</div>
+
   );
 }

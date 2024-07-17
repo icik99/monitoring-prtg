@@ -26,10 +26,10 @@ export default function AksesPoinFKB({accessToken}) {
   
   const kolomGedungFKB = [
       {
-        header: 'Nomor',
+        header: 'No.',
         cell: (row) => (
           <h1>
-            {parseInt(row.row.id) + 1}
+            {parseInt(row.row.id) + 1}.
           </h1>
         )
       },
@@ -66,7 +66,7 @@ export default function AksesPoinFKB({accessToken}) {
     return (
         <div className='space-y-11 pb-10'>
             <div className=''>
-                <h1 className='mb-6 text-5xl font-bold'>Akses Poin Gedung FKB</h1>
+                <h1 className='mb-6 text-3xl font-bold'>Akses Poin Gedung FKB</h1>
                 <DataTable columns={kolomGedungFKB} data={data} />
             </div>
         </div>

@@ -21,6 +21,14 @@ export default function MonitoringFKB({accessToken}) {
   
   const columns = [
       {
+        header: 'No.',
+        cell: (row) => (
+          <h1>
+            {parseInt(row.row.id) + 1}.
+          </h1>
+        )
+      },
+      {
         accessorKey: "ssid",
         header: "SSID",
       },
