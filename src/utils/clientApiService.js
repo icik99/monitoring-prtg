@@ -45,17 +45,33 @@ class ClientRequest {
         });
     }
 
-    static GetHistoricData(id, startDate, endDate, average) {
-        let path = `historicdata_html.htm?id=${id}&sdate=${startDate}&edate=${endDate}&avg=${average}&pctavg=300&pctshow=false&pct=95&pctmode=false&hide=NaN&apitoken=${this.urlAPI.token}`;
+    static GetListSensorById(token, id) {
+        let path = `list-sensor?id=${id}`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
     }
 
-    static GetHistoricDataCsv(id, startDate, endDate, average) {
-        let path = `historicdata.csv?id=${id}&avg=${average}&sdate=${startDate}&edate=${endDate}&usecaption=1&apitoken=${this.token}`;
+    static GetHistoricData(id, startDate, endDate, average, token) {
+        let path = `historicdata-html?id=${id}&sdate=${startDate}&edate=${endDate}&avg=${average}&pctavg=300&pctshow=false&pct=95&pctmode=false&hide=NaN`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    }
+
+    static GetHistoricDataCsv(id, startDate, endDate, average, token) {
+        let path = `historicdata-csv?id=${id}&avg=${average}&sdate=${startDate}&edate=${endDate}&usecaption=1`;
+        return request(`${this.urlAPI}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
     }
 

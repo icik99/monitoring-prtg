@@ -1,0 +1,200 @@
+{
+    "FKB":[
+     {
+      "SSID": "AP.KB1.02.01.DOSEN",
+      "IP": "10.244.160.29",
+      "MAC": "c0b8.e6de.26a8",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 2"
+     },
+     {
+      "SSID": "AP.KB2.02.07.Ruang.DCB",
+      "IP": "10.244.160.5",
+      "MAC": "c0b8.e6de.2858",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 2"
+     },
+     {
+      "SSID": "AP.LAB.RPL-101 (AP.PIC)",
+      "IP": "10.244.160.30",
+      "MAC": "7085.c49b.dc2e",
+      "Type": "Ruijie Indoor AP820-L(V3)",
+      "Throughput": "2.975 Gbps",
+      "Location": "Lantai 3"
+     },
+     {
+      "SSID": "AP.KB2.03.03.LAB.TV1",
+      "IP": "10.244.160.49",
+      "MAC": "c0b8.e6de.2310",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 3"
+     },
+     {
+      "SSID": "AP.KB1.04.03",
+      "IP": "10.244.160.75",
+      "MAC": "c0b8.e6de.2104",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 4"
+     },
+     {
+      "SSID": "AP.KB1.04.04",
+      "IP": "10.244.160.77",
+      "MAC": "c0b8.e6de.20ec",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 4"
+     }
+    ],
+    "FEB":[
+     {
+      "SSID": "AP.EB1.01.LR.Galery",
+      "IP": "10.244.160.52",
+      "MAC": "c0b8.e6de.2884",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 1"
+     },
+     {
+      "SSID": "AP.EB2.01.01-LR.01",
+      "IP": "10.244.160.53",
+      "MAC": "8005.889b.404a",
+      "Type": "Ruijie Indoor AP720-L",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 1"
+     },
+     {
+      "SSID": "AP.EB1.02.04",
+      "IP": "10.244.160.57",
+      "MAC": "c0b8.e6de.242c",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 2"
+     },
+     {
+      "SSID": "AP.EB1.02.07",
+      "IP": "10.244.160.58",
+      "MAC": "c0b8.e6de.1e10",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 2"
+     },
+     {
+      "SSID": "AP.EB1.03.01",
+      "IP": "10.244.160.61",
+      "MAC": "c0b8.e6de.24d8",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 3"
+     },
+     {
+      "SSID": "AP.EB1.03.05",
+      "IP": "10.244.160.63",
+      "MAC": "300d.9ea8.8096",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 3"
+     },
+     {
+      "SSID": "AP.EB1.04.01",
+      "IP": "10.244.160.65",
+      "MAC": "c0b8.e6de.21c0",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 4"
+     },
+     {
+      "SSID": "AP.EB1.04.05",
+      "IP": "10.244.160.68",
+      "MAC": "c0b8.e6de.24f4",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 4"
+     },
+     {
+      "SSID": "AP.FEB.05.AULA-BARAT",
+      "IP": "10.244.160.7",
+      "MAC": "8005.88c1.201b",
+      "Type": "Ruijie Indoor AP720-L",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 5"
+     },
+     {
+      "SSID": "AP.FEB.05.AULA-TIMUR",
+      "IP": "10.244.160.8",
+      "MAC": "c0b8.e6cf.a61b",
+      "Type": "Ruijie Indoor AP720-L",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 5"
+     }
+    ],
+    "MANTERAWU":[
+     {
+      "SSID": "DKN.01.Barat-aula",
+      "IP": "10.244.160.17",
+      "MAC": "00:2a:10:60:05:08",
+      "Type": "Cisco C3702",
+      "Throughput": "1.75 Gbps",
+      "Location": "Lantai 1"
+     },
+     {
+      "SSID": "DKN.01.Timur-aula",
+      "IP": "10.244.160.14",
+      "MAC": "00:f6:63:46:88:78",
+      "Type": "Cisco C1702",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 1"
+     },
+     {
+      "SSID": "DKN.02.LR-TIMUR",
+      "IP": 10244160114,
+      "MAC": "00:81:c4:56:a7:88",
+      "Type": "Cisco C1702",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 2"
+     },
+     {
+      "SSID": "DKN.02.LR-SELATAN",
+      "IP": 10244160115,
+      "MAC": "00:2a:10:68:d0:74",
+      "Type": "Cisco C3702",
+      "Throughput": "1.75 Gbps",
+      "Location": "Lantai 2"
+     },
+     {
+      "SSID": "DKN.03.LR-SELATAN",
+      "IP": 10244160119,
+      "MAC": "00:2a:10:83:28:28",
+      "Type": "Cisco C3702",
+      "Throughput": "1.75 Gbps",
+      "Location": "Lantai 3"
+     },
+     {
+      "SSID": "DKN.03.LR-TIMUR",
+      "IP": 10244160120,
+      "MAC": "00:f6:63:85:99:44",
+      "Type": "Cisco C1702",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 3"
+     },
+     {
+      "SSID": "AP.EB7.04.06",
+      "IP": "10.244.160.71",
+      "MAC": "c0b8.e6de.2124",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 4"
+     },
+     {
+      "SSID": "AP.EB7.04.08",
+      "IP": "10.244.160.69",
+      "MAC": "300d.9ea8.7cda",
+      "Type": "Ruijie Indoor AP710",
+      "Throughput": "1.167 Gbps",
+      "Location": "Lantai 4"
+     }
+    ]
+    }

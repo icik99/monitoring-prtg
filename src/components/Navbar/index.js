@@ -12,6 +12,8 @@ import Image from 'next/image';
 import Logo from '../../../public/logo.png'
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
 
 export default function Navbar() {
     const router = useRouter();
@@ -48,32 +50,55 @@ export default function Navbar() {
                             </NavigationMenuLink>
                         </Link>
                         </NavigationMenuItem>
-                        <NavigationMenuItem className='space-x-4'>
-                        {/* <Link href="/akses-poin" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                <div className='text-md'>Akses Poin Tersedia</div>
-                            </NavigationMenuLink>
-                        </Link>
-                        <Link href="/list-router" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            <div className='text-md'>Data Router</div>
-                            </NavigationMenuLink>
-                        </Link> */}
-                        <Link href="/monitoring" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            <div className='text-md'>Monitoring</div>
-                            </NavigationMenuLink>
-                        </Link>
-                        {/* <Link href="/bandwith" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            <div className='text-md'>Bandwith</div>
-                            </NavigationMenuLink>
-                        </Link> */}
-                        <Link href="/report" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            <div className='text-md'>Rekap Data</div>
-                            </NavigationMenuLink>
-                        </Link>
+                        <NavigationMenuItem>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline">Akses Poin Tersedia</Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>Pilih Gedung</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                  <DropdownMenuItem>
+                                    <Link href={'/akses-poin/gedung-feb'}>Gedung FEB</Link>
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem>
+                                    <Link href={'/akses-poin/gedung-fkb'}>Gedung FKB</Link>
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem>
+                                    <Link href={'/akses-poin/gedung-manterawu'}>Gedung Manterawu</Link>
+                                  </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                          <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline">Monitoring Jaringan</Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>Pilih Gedung</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                  <Link href={'/monitoring/gedung-feb'}>
+                                    <DropdownMenuItem>
+                                      Gedung FEB
+                                    </DropdownMenuItem>
+                                  </Link>
+                                  <Link href={'/monitoring/gedung-fkb'}>
+                                    <DropdownMenuItem>
+                                      Gedung FKB
+                                    </DropdownMenuItem>
+                                  </Link>
+                                  <Link href={'/monitoring/gedung-manterawu'}>
+                                    <DropdownMenuItem>
+                                      Gedung Manterawu
+                                    </DropdownMenuItem>
+                                  </Link>
+                                </DropdownMenuGroup>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                         </NavigationMenuItem>
                     </NavigationMenuList>
             </NavigationMenu>

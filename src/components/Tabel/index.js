@@ -39,9 +39,9 @@ export default function DataTable({ columns, data }) {
       <div className="flex items-center py-4">
         <Input
           placeholder="Search Access Point (SSID)..."
-          value={(table.getColumn("ssid")?.getFilterValue() ?? "")}
+          value={(table.getColumn("SSID")?.getFilterValue() ?? "")}
           onChange={(event) =>
-            table.getColumn("ssid")?.setFilterValue(event.target.value)
+            table.getColumn("SSID")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

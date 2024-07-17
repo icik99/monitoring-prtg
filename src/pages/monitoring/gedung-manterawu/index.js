@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import DataTable from '../../components/Tabel';
+import DataTable from '@/components/Tabel';
 import Link from 'next/link';
 import { withSession } from '@/utils/sessionWrapper';
 import routeGuard from '@/utils/routeGuard';
 import ClientRequest from '@/utils/clientApiService';
 
-export default function Monitoring({accessToken}) {
+export default function MonitoringManterawu({accessToken}) {
     const [data, setData] = useState([]);
 
     const getSensor = async () => {
@@ -73,7 +73,7 @@ export default function Monitoring({accessToken}) {
     return (
         <div className='space-y-11'>
             <div className=''>
-                <h1 className='mb-6 text-5xl font-bold'>Hasil Monitoring Jaringan</h1>
+                <h1 className='mb-6 text-3xl font-bold'>Monitoring Jaringan Gedung Manterawu</h1>
                 <DataTable columns={columns} data={data} />
             </div>
         </div>

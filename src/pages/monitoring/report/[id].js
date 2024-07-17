@@ -1,11 +1,27 @@
-import routeGuard from '@/utils/routeGuard'
-import { withSession } from '@/utils/sessionWrapper'
-import { useFormik } from 'formik'
-import React, { useEffect } from 'react'
-import moment from 'moment'; 
-import ClientRequest from '@/utils/clientApiService';
+import ClientRequest from "@/utils/clientApiService";
+import routeGuard from "@/utils/routeGuard";
+import { withSession } from "@/utils/sessionWrapper";
+import { useFormik } from "formik";
+import moment from "moment";
+import { saveAs } from 'file-saver';
+import { useEffect, useState } from "react";
 
-export default function RekapData( {resDataSensor} ) {
+
+export default function RekapData( {accessToken, idSensor} ) {
+
+    const [dataSensor, setDataSensor] = useState([])
+
+    const getDataSensor = async () => {
+        try {
+            const res = await ClientRequest.GetListSensorById(accessToken, idSensor)
+            setDataSensor(res.data.data.sensor)
+        } catch (error) {
+        }
+    }
+
+    useEffect(() => {
+        getDataSensor()
+    }, [])
     
     const formik = useFormik({
         initialValues: {
@@ -27,8 +43,29 @@ export default function RekapData( {resDataSensor} ) {
 
             return errors;
         },
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             console.log(values);
+
+            try {
+                if(values.formatEkspor == 'CSV') {
+                    const res = await ClientRequest.GetHistoricDataCsv(values.id, values.startDate, values.endDate, values.intervalWaktu, accessToken)
+                    
+                    const isiData = res.data // ini adalah isi data csv saya
+                    const blob = new Blob([isiData], { type: 'text/csv;charset=utf-8;' });
+                    saveAs(blob, 'data.csv');
+                }
+                if (values.formatEkspor == 'HTML'){
+                    const res = await ClientRequest.GetHistoricData(values.id, values.startDate, values.endDate, values.intervalWaktu, accessToken)
+                    if (res.headers['content-type'].includes('text/html')) {
+                        // Membuat jendela baru dan menulis HTML di dalamnya
+                        const newWindow = window.open();
+                        newWindow.document.write(res.data);
+                        newWindow.document.close();
+                    }
+                }   
+            } catch (error) {
+                console.log(error)
+            }
         },
         validateOnChange: true,
     });
@@ -39,7 +76,7 @@ export default function RekapData( {resDataSensor} ) {
 
     return (
         <div className='space-y-4'>
-            <h1 className='mb-6 text-5xl font-bold'>Report Sensor</h1>
+            <h1 className='mb-6 text-5xl font-bold'>Rekap Sensor Device</h1>
             <div className='space-y-2'>
                 <h1>Jenis Sensor Device</h1>
                 <select
@@ -49,9 +86,9 @@ export default function RekapData( {resDataSensor} ) {
                     className='border p-2 rounded-lg outline-none'
                 >
                     <option value="">Pilih Sensor ...</option>
-                    <option value="SNMP Traffic">SNMP Traffic</option>
-                    <option value="Ping">Ping</option>
-                    <option value="Jitter">Jitter</option>
+                    {Object.values(dataSensor).map((item, idx) => (
+                        <option value={item.objid}>{item.sensor}</option>
+                    ))}
                 </select>
                 {formik.touched.id && formik.errors.id ? (
                     <div className='text-red-500 font-semibold text-xs'>{formik.errors.id}</div>
@@ -116,7 +153,7 @@ export default function RekapData( {resDataSensor} ) {
                 >
                     <option value="">Pilih Format Ekspor</option>
                     <option value="CSV">CSV</option>
-                    <option value="HTML dan PDF">HTML dan PDF</option>
+                    <option value="HTML">HTML</option>
                 </select>
                 {formik.touched.formatEkspor && formik.errors.formatEkspor ? (
                     <div className='text-red-500 font-semibold text-xs'>{formik.errors.formatEkspor}</div>
@@ -128,13 +165,18 @@ export default function RekapData( {resDataSensor} ) {
     );
 }
 
-export const getServerSideProps = withSession(async ({ req }) => {
+export const getServerSideProps = withSession(async (context) => {
+    const {req, query} = context
     const accessToken = req.session?.auth?.access_token;
     const isLoggedIn = !!accessToken;
+    // console.log(query.id)
+    const idSensor = query.id
     
     const validator = [isLoggedIn];
     return routeGuard(validator, '/auth/login', {
         props: {
+            accessToken,
+            idSensor
         }
     });
 });
