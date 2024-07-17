@@ -6,7 +6,8 @@ import { withSession } from '@/utils/sessionWrapper';
 import ClientRequest from '@/utils/clientApiService';
 import routeGuard from '@/utils/routeGuard';
 
-export default function Dashboard() {
+export default function Dashboard({countDashboard}) {
+
   const LeafletMap = useMemo(() => dynamic(
     () => import('@/components/LeafletMap'),
     { 
@@ -27,16 +28,16 @@ export default function Dashboard() {
             <h1 className="font-bold text-5xl">5</h1>
           </div>
         </div> */}
-        <div className="lg:w-[490px] w-full border-b-[#b6252a] border-b-[15px] h-[160px] rounded-lg border p-[30px] bg-white shadow">
+        <div className="lg:w-[full] w-full border-b-[#b6252a] border-b-[15px] h-[160px] rounded-lg border p-[30px] bg-white shadow">
           <div className="flex items-center h-full justify-between gap-3">
             <div className='flex items-center justify-center gap-3'>
               <MdWifi className='text-5xl text-[#b6252a]'/>
               <h1 className="font-bold text-2xl">Akses Poin Terhubung</h1>
             </div>
-            <h1 className="font-bold text-5xl">5</h1>
+            <h1 className="font-bold text-5xl">{countDashboard.countRouter}</h1>
           </div>
         </div>
-        <div className="lg:w-[490px] w-full border-b-[#b6252a] border-b-[15px] h-[160px] rounded-lg border p-[30px] bg-white shadow">
+        {/* <div className="lg:w-[490px] w-full border-b-[#b6252a] border-b-[15px] h-[160px] rounded-lg border p-[30px] bg-white shadow">
           <div className="flex items-center h-full justify-between gap-3">
             <div className='flex items-center justify-center gap-3'>
               <FaUserFriends  className='text-5xl text-[#b6252a]'/>
@@ -44,7 +45,7 @@ export default function Dashboard() {
             </div>
             <h1 className="font-bold text-5xl">5</h1>
           </div>
-        </div>
+        </div> */}
       </div>
       <section className='mt-10'>
         <h1 className='font-bold text-5xl mb-2 p-2'>Lokasi Server:</h1>
@@ -58,11 +59,12 @@ export default function Dashboard() {
 
 export const getServerSideProps = withSession(async ({ req }) => {
 	const accessToken = req.session?.auth?.access_token
+  const res = await ClientRequest.CountDashboard(accessToken)
 	const isLoggedIn = !!accessToken
 	const validator = [isLoggedIn]
 	return routeGuard(validator, '/auth/login', {
 		props: {
-
+        countDashboard: res.data.data
     }
 	})
 })

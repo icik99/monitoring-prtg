@@ -15,7 +15,7 @@ const LeafletMap = () => {
         />
         <Marker position={position}>
           <Popup>
-            Jl. Karangklesem No.294, Windusara, Karangklesem, Kec. Purwokerto Sel., Kabupaten Banyumas, Jawa Tengah 53144
+            Gedung Panambulai, Pusat Teknologi Informasi Telkom University
           </Popup>
         </Marker>
       </MapContainer>

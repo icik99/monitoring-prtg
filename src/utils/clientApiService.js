@@ -36,7 +36,7 @@ class ClientRequest {
     }
 
     static CountDashboard(token) {
-        let path = `amount-dashboard`;
+        let path = `count-dashboard`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
             headers: {

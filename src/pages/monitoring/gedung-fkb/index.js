@@ -6,7 +6,7 @@ import { withSession } from '@/utils/sessionWrapper';
 import routeGuard from '@/utils/routeGuard';
 import ClientRequest from '@/utils/clientApiService';
 
-export default function MonitoringManterawu({accessToken}) {
+export default function MonitoringFKB({accessToken}) {
     const [data, setData] = useState([]);
 
     const getSensor = async () => {
@@ -73,7 +73,7 @@ export default function MonitoringManterawu({accessToken}) {
     return (
         <div className='space-y-11'>
             <div className=''>
-                <h1 className='mb-6 text-3xl font-bold'>Monitoring Jaringan Gedung Manterawu</h1>
+                <h1 className='mb-6 text-3xl font-bold'>Monitoring Jaringan Gedung FKB</h1>
                 <DataTable columns={columns} data={data} />
             </div>
         </div>
