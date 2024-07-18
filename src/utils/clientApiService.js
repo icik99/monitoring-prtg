@@ -17,8 +17,8 @@ class ClientRequest {
         });
     }
 
-    static GetDataMonitoring(token) {
-        let path = 'monitoring';
+    static GetDataMonitoring(token, idGroup) {
+        let path = `monitoring/${idGroup}`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
             headers: {
@@ -79,6 +79,16 @@ class ClientRequest {
         let path = `api/table.json?content=sensor&columns=objid,sensor&apitoken=${this.token}&usecaption=true&filter_parentid=2068`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
+        });
+    }
+    
+    static GetBandwith(id,  token) {
+        let path = `get-svg?type=graph&graphid=0&id=${id}&graphstyling=showLegend%3D%271%27+baseFontSize%3D%275%27 `;
+        return request(`${this.urlAPI}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
     }
 }
