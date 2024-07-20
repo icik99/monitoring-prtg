@@ -78,9 +78,9 @@ export default function MonitoringManterawu({accessToken}) {
         cell: ({row}) => {
           return(
             <>
-              <Button className='mr-2' asChild variant='outline'>
+              {/* <Button className='mr-2' asChild variant='outline'>
                   <Link href={`/monitoring/report/${row.original.objid}`}>Rekap Data</Link>
-              </Button>
+              </Button> */}
               <Button onClick={() => openModalBandwith(row.original.idSNMP, row.original.idPing, row.original.idJitter)} variant='outline'>
                   Grafik
               </Button>
