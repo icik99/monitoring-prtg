@@ -7,9 +7,9 @@ import routeGuard from '@/utils/routeGuard';
 import ClientRequest from '@/utils/clientApiService';
 
 export default function Monitoring({accessToken}) {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-    const getSensor = async () => {
+  const getSensor = async () => {
       try {
           const res = await ClientRequest.GetDataMonitoring(accessToken) 
           setData(res.data.data)
@@ -66,7 +66,7 @@ export default function Monitoring({accessToken}) {
       },
   ];
 
-    useEffect(() => {
+  useEffect(() => {
       getSensor()
   }, [])
 

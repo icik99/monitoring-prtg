@@ -88,7 +88,7 @@ export default function RekapData( {accessToken, idSensor} ) {
                 >
                     <option value="">Pilih Sensor ...</option>
                     {Object.values(dataSensor).map((item, idx) => (
-                        <option value={item.objid}>{item.sensor}</option>
+                        <option key={idx} value={item.objid}>{item.sensor}</option>
                     ))}
                 </select>
                 {formik.touched.id && formik.errors.id ? (
@@ -172,7 +172,6 @@ export const getServerSideProps = withSession(async (context) => {
     const {req, query} = context
     const accessToken = req.session?.auth?.access_token;
     const isLoggedIn = !!accessToken;
-    // console.log(query.id)
     const idSensor = query.id
     
     const validator = [isLoggedIn];
