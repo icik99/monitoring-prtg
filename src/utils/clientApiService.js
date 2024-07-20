@@ -2,7 +2,7 @@ import request from "./requestClient";
 
 class ClientRequest {
 
-    static urlAPI = process.env.NEXT_BACKEND_API_URL
+    static urlAPI = process.env.NEXT_PUBLIC_URL_LOCAL;
     static token = '5Z23HMY56Y7GRFHAFGVQM3ZPVUSC36P5ZU2ASTNTU4======';
 
     // Auth
