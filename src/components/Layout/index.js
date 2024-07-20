@@ -9,16 +9,14 @@ export default function Layout({ children }) {
     const isHomePage = router.pathname === "/";
     
     return (
-        <div className='min-h-screen bg-blue-gray-50 w-full'>
+        <div className=' bg-blue-gray-50 '>
             {isHomePage ? (
                 <div className='bg-slate-200'>{children}</div>
             ) : isAuthRoute ? (
                 <div className='bg-slate-200'>{children}</div>
             ) : (
                 <div className='w-full'>
-                    <div className='flex items-center justify-center'>
-                        <Navbar />
-                    </div>
+                    <Navbar />
                     <div className='bg-slate-200 px-12 pt-10 pb-2 min-h-screen'>
                         {children}
                     </div>

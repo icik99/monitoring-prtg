@@ -76,7 +76,7 @@ export default function LoginPage() {
     <div className="border p-9  w-[700px] shadow-lg bg-white">
       <div className="flex items-center justify-between mb-5 border-b-[#b6252a] border-b-2 py-2">
         <Image src={LogoRed} alt="Logo" width={120} height={120} />
-        <h1 className="text-4xl font-bold text-[#b6252a]">Web Monitoring Jaringan</h1>
+        <h1 className="lg:text-4xl text-2xl font-bold text-[#b6252a]">Web Monitoring Jaringan</h1>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">

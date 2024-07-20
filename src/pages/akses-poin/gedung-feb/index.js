@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { withSession } from '@/utils/sessionWrapper';
 import routeGuard from '@/utils/routeGuard';
 import axios from 'axios';

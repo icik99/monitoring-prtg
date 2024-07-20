@@ -6,13 +6,17 @@ import { withSession } from '@/utils/sessionWrapper';
 import routeGuard from '@/utils/routeGuard';
 import ClientRequest from '@/utils/clientApiService';
 import Modal from '@/components/Modal';
-import axios from 'axios';
-import toast from 'react-hot-toast';
 
 export default function MonitoringManterawu({accessToken}) {
     const [data, setData] = useState([]);
     const [modalShowBandwith, setModalShowBandwith] = useState(false)
-    const [dataSvg, setDataSvg] = useState('')
+    const [dataSvgBandiwth, setDataSvgBandwith] = useState('')
+    const [dataSvgPing, setDataSvgPing] = useState('')
+    const [dataSvgJitter, setDataSvgJitter] = useState('')
+
+    const convertToMbit = (value) => {
+      return (value / 1024).toFixed(2);
+    };
 
     const columns = [
       {
@@ -29,27 +33,45 @@ export default function MonitoringManterawu({accessToken}) {
       },
       {
         accessorKey: "kecepatanDownload",
-        header: "Kecepatan Download",
+        header: "Kecepatan Upload",
+        cell: ({row}) => (
+          <h1>{convertToMbit(row.original.kecepatanDownload)} Mbit/S</h1>
+        )
       },
       {
         accessorKey: "kecepatanUpload",
-        header: "Kecepatan Upload",
+        header: "Kecepatan Download",
+        cell: ({row}) => (
+          <h1>{convertToMbit(row.original.kecepatanUpload)} Mbit/S</h1>
+        )
       },
       {
         accessorKey: "ping",
         header: "Ping",
+        cell: ({row}) => (
+          <h1>{row.original.ping} Ms</h1>
+        )
       },
       {
         accessorKey: "jitter",
         header: "Jitter",
+        cell: ({row}) => (
+          <h1>{row.original.jitter} Ms</h1>
+        )
       },
       {
         accessorKey: "presentaseKekuatanSinyal",
         header: "Persentase Kekuatan Sinyal",
+        cell: ({row}) => (
+          <h1>{row.original.presentaseKekuatanSinyal || 0} %</h1>
+        )
       },
       {
         accessorKey: "waktu",
         header: "Waktu",
+        cell: ({row}) => (
+          <h1>{row.original.waktu || '-'}</h1>
+        )
       },
       {
         id: "Actions",
@@ -59,8 +81,8 @@ export default function MonitoringManterawu({accessToken}) {
               <Button className='mr-2' asChild variant='outline'>
                   <Link href={`/monitoring/report/${row.original.objid}`}>Rekap Data</Link>
               </Button>
-              <Button onClick={() => openModalBandwith(row.original.idSNMP)} variant='outline'>
-                  Bandwith
+              <Button onClick={() => openModalBandwith(row.original.idSNMP, row.original.idPing, row.original.idJitter)} variant='outline'>
+                  Grafik
               </Button>
             
             </>
@@ -69,29 +91,25 @@ export default function MonitoringManterawu({accessToken}) {
       },
     ];
 
-    const openModalBandwith = async (id) => { // parameter adalah id sensor snmp
+    const openModalBandwith = async (idBandiwth, idPing, idJitter) => { 
       setModalShowBandwith(!modalShowBandwith)
-      if(!id){
-        toast.error('Device ini tidak memiliki sensor SNMP')
-        // setModalShowBandwith(!modalShowBandwith)
         try {
-          const res = await ClientRequest.GetBandwith(id, accessToken)// asumsi data svg berbentuk string
-          console.log(res, 'res bandwith')
-          setDataSvg(res.data)
+          const resBandwith = await ClientRequest.GetBandwith(idBandiwth, accessToken)
+          const resPing = await ClientRequest.GetBandwith(idPing, accessToken)
+          const resJitter = await ClientRequest.GetBandwith(idJitter, accessToken)
+          setDataSvgBandwith(resBandwith.data)
+          setDataSvgPing(resPing.data)
+          setDataSvgJitter(resJitter.data)
         } catch (error) {
           console.log(error)
-          
         }
-      } else {
-      }
     }
 
 
     const getSensor = async () => {
       try {
-          const res = await ClientRequest.GetDataMonitoring(accessToken, '2084') 
+          const res = await ClientRequest.GetDataMonitoring(accessToken, '2152') 
           setData(res.data.data)
-          console.log(res.data)
       } catch (error) {
           console.log(error)
       }
@@ -113,16 +131,27 @@ export default function MonitoringManterawu({accessToken}) {
       <>
       <Modal 
         activeModal={modalShowBandwith}
-        title={'Grafik Bandwith'}
+        title={'Grafik'}
         buttonClose={ () => setModalShowBandwith(!modalShowBandwith)}
         width={'1000px'}
         content= {
             <div className='px-12 pb-5'>
-              <div dangerouslySetInnerHTML={{ __html: dataSvg }} />
+              <div className=''>
+                <h1 className='font-semibold'>Grafik Bandwith</h1>
+                <div dangerouslySetInnerHTML={{ __html: dataSvgBandiwth }} />
+              </div>
+              <div className='border-t-2 pt-2'>
+                <h1 className='font-semibold'>Grafik PING</h1>
+                <div dangerouslySetInnerHTML={{ __html: dataSvgPing }} />
+              </div>
+              <div className='border-t-2 pt-2'>
+                <h1 className='font-semibold'>Grafik Jitter</h1>
+                <div dangerouslySetInnerHTML={{ __html: dataSvgJitter }} />
+              </div>
             </div>
         }
       />
-        <div className='space-y-11'>
+        <div className='space-y-11 pb-10'>
             <div className=''>
                 <h1 className='mb-6 text-3xl font-bold'>Monitoring Jaringan Gedung Manterawu</h1>
                 <DataTable columns={columns} data={data} />

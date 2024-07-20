@@ -2,7 +2,7 @@ import request from "./requestClient";
 
 class ClientRequest {
 
-    static urlAPI = "http://localhost:5006/"
+    static urlAPI = process.env.NEXT_BACKEND_API_URL
     static token = '5Z23HMY56Y7GRFHAFGVQM3ZPVUSC36P5ZU2ASTNTU4======';
 
     // Auth
@@ -75,12 +75,6 @@ class ClientRequest {
         });
     }
 
-    static GetSensorDevice() {
-        let path = `api/table.json?content=sensor&columns=objid,sensor&apitoken=${this.token}&usecaption=true&filter_parentid=2068`;
-        return request(`${this.urlAPI}${path}`, {
-            method: 'GET',
-        });
-    }
     
     static GetBandwith(id,  token) {
         let path = `get-svg?type=graph&graphid=0&id=${id}&graphstyling=showLegend%3D%271%27+baseFontSize%3D%275%27 `;
