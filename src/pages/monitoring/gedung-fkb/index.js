@@ -8,6 +8,7 @@ import ClientRequest from '@/utils/clientApiService';
 import Modal from '@/components/Modal';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { Rings } from 'react-loader-spinner';
 
 export default function MonitoringFKB({accessToken}) {
     const [data, setData] = useState([]);
@@ -80,9 +81,9 @@ export default function MonitoringFKB({accessToken}) {
         cell: ({row}) => {
           return(
             <>
-              {/* <Button className='mr-2' asChild variant='outline'>
+              <Button className='mr-2' asChild variant='outline'>
                   <Link href={`/monitoring/report/${row.original.objid}`}>Rekap Data</Link>
-              </Button> */}
+              </Button>
               <Button onClick={() => openModalBandwith(row.original.idSNMP, row.original.idPing, row.original.idJitter)} variant='outline'>
                   Grafik
               </Button>
@@ -130,6 +131,23 @@ export default function MonitoringFKB({accessToken}) {
     return () => clearInterval(intervalId)
   }, [])
 
+  if (data.length === 0) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <Rings
+          height="80"
+          width="80"
+          color="#b6252a"
+          radius="6"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="rings-loading"
+        />
+        <h1>Loading data from PRTG...</h1>
+      </div>
+    );
+  }
     return (
       <>
       <Modal 
@@ -138,7 +156,7 @@ export default function MonitoringFKB({accessToken}) {
         buttonClose={ () => setModalShowBandwith(!modalShowBandwith)}
         width={'1000px'}
         content= {
-            <div className='px-12 pb-5'>
+            <div className='px-12 pb-10'>
               <div className=''>
                 <h1 className='font-semibold'>Grafik Bandwith</h1>
                 <div dangerouslySetInnerHTML={{ __html: dataSvgBandiwth }} />
@@ -156,7 +174,11 @@ export default function MonitoringFKB({accessToken}) {
       />
         <div className='space-y-11'>
             <div className=''>
-                <h1 className='mb-6 text-3xl font-bold'>Monitoring Jaringan Gedung FKB</h1>
+              <div className='flex items-center justify-center'>
+                <h1 className='mb-6 text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white  py-3 px-5 w-fit rounded-lg'>
+                  Monitoring Jaringan Gedung FKB
+                </h1>
+              </div>
                 <DataTable columns={columns} data={data} />
             </div>
         </div>

@@ -19,6 +19,7 @@ import LogoRed from "../../../../public/logored.png";
 import BgLogin from "../../../../public/bgLogin.png";
 import axios from "axios";
 import toast from "react-hot-toast";
+import ClientRequest from "@/utils/clientApiService";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -29,7 +30,7 @@ const FormSchema = z.object({
   }),
 });
 
-export default function LoginPage() {
+export default function Register() {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -39,23 +40,16 @@ export default function LoginPage() {
     },
   });
 
-  function onSubmit(data) {
-    const {username, password} = data
+  function onSubmit (data) {
 
     try {
-      toast.promise(
-        axios.request({
-          method: 'POST',
-          url: '/api/login',
-          data: { username, password }
-        }), {
+        toast.promise(
+        ClientRequest.Register(data), {
           loading: 'Sedang melakukan login...',
           success: (res) => {
-            if (res.status === 200) {
-              console.log(res, 'response login');
-              router.push('/dashboard');
-              return "Login Berhasil!"
-            }
+            console.log(res)
+            router.push('/auth/login');
+            return "Berhasil daftar, Silahkan login untuk masuk ke sistem!"
           },
           error: (error) => {
             console.error(error);
@@ -82,14 +76,12 @@ export default function LoginPage() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
           <FormField control={form.control} name="username"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg">Username</FormLabel>
+                <FormItem>
+                <h1 className="text-lg font-semibold underline pb-2">Registrasi Akun Baru</h1>
+                <FormLabel className="text-md">Username</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your username" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Masukan username admin
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -97,18 +89,15 @@ export default function LoginPage() {
           <FormField control={form.control} name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-lg">Password</FormLabel>
+                <FormLabel className="text-md">Password</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="Enter your password" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Masukan password admin
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="bg-[#b6252a]" type="submit">Submit</Button>
+          <Button className="bg-[#b6252a]" type="submit">Daftar</Button>
         </form>
       </Form>
     </div>

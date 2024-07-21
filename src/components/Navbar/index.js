@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image';
 import Logo from '../../../public/logo.png'
 import toast from 'react-hot-toast';
+import { IoIosWifi } from "react-icons/io";
 import axios from 'axios';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
@@ -38,8 +39,8 @@ export default function Navbar() {
   return (
     <div className='border-b-2 w-full px-8 py-6 bg-[#b6252a]'>
         <div className='flex items-center justify-between'>
-            <div>
-                <Image src={Logo} alt='Logo' width={100} height={100}/>
+            <div className='border-4  border-black p-2'>
+              <IoIosWifi className='text-5xl text-white '/> 
             </div>
             <div>
               <NavigationMenu>

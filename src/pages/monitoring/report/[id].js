@@ -6,6 +6,8 @@ import moment from "moment";
 import { saveAs } from 'file-saver';
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 export default function RekapData( {accessToken, idSensor} ) {
@@ -27,13 +29,11 @@ export default function RekapData( {accessToken, idSensor} ) {
     const formik = useFormik({
         initialValues: {
             id: '',
-            startDate: '',
-            endDate: '',
             intervalWaktu: '',
             formatEkspor: '',
         },
         validate: (values) => {
-            const requireFields = ['id', 'startDate', 'endDate', 'intervalWaktu', 'formatEkspor'];
+            const requireFields = ['id',  'intervalWaktu', 'formatEkspor'];
             const errors = {};
 
             requireFields.forEach(field => {
@@ -49,14 +49,14 @@ export default function RekapData( {accessToken, idSensor} ) {
 
             try {
                 if(values.formatEkspor == 'CSV') {
-                    const res = await ClientRequest.GetHistoricDataCsv(values.id, values.startDate, values.endDate, values.intervalWaktu, accessToken)
+                    const res = await ClientRequest.GetHistoricDataCsv(values.id, values.intervalWaktu, accessToken)
                     
                     const isiData = res.data // ini adalah isi data csv saya
                     const blob = new Blob([isiData], { type: 'text/csv;charset=utf-8;' });
                     saveAs(blob, 'data.csv');
                 }
                 if (values.formatEkspor == 'HTML'){
-                    const res = await ClientRequest.GetHistoricData(values.id, values.startDate, values.endDate, values.intervalWaktu, accessToken)
+                    const res = await ClientRequest.GetHistoricData(values.id, values.intervalWaktu, accessToken)
                     if (res.headers['content-type'].includes('text/html')) {
                         // Membuat jendela baru dan menulis HTML di dalamnya
                         const newWindow = window.open();
@@ -64,6 +64,30 @@ export default function RekapData( {accessToken, idSensor} ) {
                         newWindow.document.close();
                     }
                 }   
+                if (values.formatEkspor === 'PDF') {
+                    const res = await ClientRequest.GetHistoricData(values.id, values.intervalWaktu, accessToken)
+                    const newWindow = window.open();
+                    newWindow.document.write(res.data);
+                    newWindow.document.close();
+
+                    // Tunggu sampai halaman baru selesai dimuat
+                    newWindow.onload = async function () {
+                        const element = newWindow.document.documentElement;
+                        const canvas = await html2canvas(element);
+                        const imgData = canvas.toDataURL('image/png');
+
+                        const pdf = new jsPDF('p', 'mm', 'a4');
+                        const imgProps = pdf.getImageProperties(imgData);
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                        pdf.save('download.pdf');
+
+                        newWindow.close();
+                    };
+
+                }
             } catch (error) {
                 console.log(error)
             }
@@ -96,55 +120,6 @@ export default function RekapData( {accessToken, idSensor} ) {
                 ) : null}
             </div>
             <div className='space-y-3 w-full'>
-                <h1 className="font-semibold">Range Tanggal & Waktu</h1>
-                <div className='flex items-center justify-start gap-2'>
-                    <div>
-                        <h1 className="">Start Date</h1>
-                        <input
-                            name='startDate'
-                            onChange={(e) => formik.setFieldValue('startDate', formatInputDate(e.target.value))}
-                            onBlur={formik.handleBlur}
-                            type="datetime-local"
-                            className='border p-2 rounded-lg outline-none w-full'
-                        />
-                        {formik.touched.startDate && formik.errors.startDate ? (
-                            <div className='text-red-500 font-semibold text-xs'>{formik.errors.startDate}</div>
-                        ) : null}
-                    </div>
-                    <div>
-                        <h1 className="">End Date</h1>
-                        <input
-                            name='endDate'
-                            onChange={(e) => formik.setFieldValue('endDate', formatInputDate(e.target.value))}
-                            onBlur={formik.handleBlur}
-                            type="datetime-local"
-                            className='border p-2 rounded-lg outline-none w-full'
-                        />
-                        {formik.touched.endDate && formik.errors.endDate ? (
-                            <div className='text-red-500 font-semibold text-xs'>{formik.errors.endDate}</div>
-                        ) : null}
-                    </div>
-                </div>
-            </div>
-            <div className='space-y-3 w-full'>
-                <h1 className="font-semibold">Interval Waktu</h1>
-                <select
-                    name='intervalWaktu'
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    className='border p-2 rounded-lg outline-none w-full'
-                >
-                    <option value="">Pilih Interval Waktu...</option>
-                    <option value="3600">1 Jam</option>
-                    <option value="7200">2 Jam</option>
-                    <option value="14400">4 Jam</option>
-                    <option value="86400">24 Jam / 1 Hari</option>
-                </select>
-                {formik.touched.intervalWaktu && formik.errors.intervalWaktu ? (
-                    <div className='text-red-500 font-semibold text-xs'>{formik.errors.intervalWaktu}</div>
-                ) : null}
-            </div>
-            <div className='space-y-3 w-full'>
                 <h1 className="font-semibold">Format Ekspor</h1>
                 <select
                     name='formatEkspor'
@@ -155,11 +130,39 @@ export default function RekapData( {accessToken, idSensor} ) {
                     <option value="">Pilih Format Ekspor</option>
                     <option value="CSV">CSV</option>
                     <option value="HTML">HTML</option>
+                    <option value="PDF">PDF</option>
                 </select>
                 {formik.touched.formatEkspor && formik.errors.formatEkspor ? (
                     <div className='text-red-500 font-semibold text-xs'>{formik.errors.formatEkspor}</div>
                 ) : null}
             </div>
+            <div className='space-y-3 w-full'>
+                <h1 className="font-semibold">Interval Waktu</h1>
+                <select
+                    name='intervalWaktu'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className='border p-2 rounded-lg outline-none w-full'
+                >
+                    <option value="">Pilih Interval Waktu...</option>
+                    {formik.values.formatEkspor === 'CSV' ? (
+                        <>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </>
+                    ) : (
+                        <>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                        </>
+                    )}
+                </select>
+                {formik.touched.intervalWaktu && formik.errors.intervalWaktu ? (
+                    <div className='text-red-500 font-semibold text-xs'>{formik.errors.intervalWaktu}</div>
+                ) : null}
+            </div>
+            
 
             <div className="flex items-center justify-end">
                 <Button variant='' size='lg' onClick={formik.handleSubmit} type='submit'>Rekap</Button>

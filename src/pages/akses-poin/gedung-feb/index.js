@@ -60,7 +60,11 @@ export default function AksesPoinFEB({accessToken}) {
     return (
         <div className='space-y-11 pb-10'>
             <div className=''>
-                <h1 className='mb-6 text-3xl font-bold'>Akses Poin Gedung FEB</h1>
+                <div className='flex items-center justify-center'>
+                  <h1 className='mb-6 text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white  py-3 px-5 w-fit rounded-lg'>
+                    Akses Poin Gedung FEB
+                  </h1>
+                </div>
                 <DataTable columns={kolomGedungFEB} data={data} />
             </div>
         </div>

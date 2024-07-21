@@ -17,6 +17,14 @@ class ClientRequest {
         });
     }
 
+    static Register(data) {
+        let path = 'register';
+        return request(`${this.urlAPI}${path}`, {
+            method: 'POST',
+            data
+        });
+    }
+
     static GetDataMonitoring(token, idGroup) {
         let path = `monitoring/${idGroup}`;
         return request(`${this.urlAPI}${path}`, {
@@ -55,8 +63,8 @@ class ClientRequest {
         });
     }
 
-    static GetHistoricData(id, startDate, endDate, average, token) {
-        let path = `historicdata-html?id=${id}&sdate=${startDate}&edate=${endDate}&avg=${average}&pctavg=300&pctshow=false&pct=95&pctmode=false&hide=NaN`;
+    static GetHistoricData(id, interval, token) {
+        let path = `historicdata-html/${interval}?id=${id}`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
             headers: {
@@ -65,8 +73,8 @@ class ClientRequest {
         });
     }
 
-    static GetHistoricDataCsv(id, startDate, endDate, average, token) {
-        let path = `historicdata-csv?id=${id}&avg=${average}&sdate=${startDate}&edate=${endDate}&usecaption=1`;
+    static GetHistoricDataCsv(id, interval, token) {
+        let path = `historicdata-csv/${interval}?id=${id}`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
             headers: {
