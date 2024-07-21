@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <div className='border-b-2 w-full px-8 py-6 bg-[#b6252a]'>
         <div className='flex items-center justify-between'>
-            <div className='border-4  border-black p-2'>
+            <div className='border-4  bg-red-600 rounded-xl p-2'>
               <IoIosWifi className='text-5xl text-white '/> 
             </div>
             <div>

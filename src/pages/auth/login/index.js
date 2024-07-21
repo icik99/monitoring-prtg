@@ -15,10 +15,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import LogoRed from "../../../../public/logored.png";
+import LogoRed from "../../../../public/logo.png";
 import BgLogin from "../../../../public/bgLogin.png";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { IoIosWifi } from "react-icons/io";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -72,10 +73,12 @@ export default function LoginPage() {
   return (
     <div className="relative h-screen">
   <Image src={BgLogin} alt="Background Login" layout="fill" objectFit="" />
-  <div className="absolute inset-0 flex justify-end items-end p-2">
+  <div className="absolute inset-0 flex justify-end items-end p-3">
     <div className="border pt-2 pb-5 px-9  w-[700px] shadow-lg bg-white">
       <div className="flex items-center justify-between mb-5 border-b-[#b6252a] border-b-2 py-2">
-        <Image src={LogoRed} alt="Logo" width={120} height={120} />
+        <div className='border-4  bg-red-600 rounded-xl p-2'>
+          <IoIosWifi className='text-5xl text-white '/> 
+        </div>
         <h1 className="lg:text-4xl text-2xl font-bold text-[#b6252a]">Web Monitoring Jaringan</h1>
       </div>
       <Form {...form}>
@@ -87,9 +90,6 @@ export default function LoginPage() {
                 <FormControl>
                   <Input placeholder="Enter your username" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Masukan username admin
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -101,14 +101,13 @@ export default function LoginPage() {
                 <FormControl>
                   <Input type="password" placeholder="Enter your password" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Masukan password admin
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="bg-[#b6252a]" type="submit">Submit</Button>
+          <div className="flex items-center justify-end">
+            <Button className="bg-[#b6252a]" type="submit">Login</Button>
+          </div>
         </form>
       </Form>
     </div>

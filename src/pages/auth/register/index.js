@@ -20,6 +20,7 @@ import BgLogin from "../../../../public/bgLogin.png";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ClientRequest from "@/utils/clientApiService";
+import { IoIosWifi } from "react-icons/io";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -69,7 +70,9 @@ export default function Register() {
   <div className="absolute inset-0 flex justify-end items-end p-2">
     <div className="border pt-2 pb-5 px-9  w-[700px] shadow-lg bg-white">
       <div className="flex items-center justify-between mb-5 border-b-[#b6252a] border-b-2 py-2">
-        <Image src={LogoRed} alt="Logo" width={120} height={120} />
+        <div className='border-4  bg-red-600 rounded-xl p-2'>
+          <IoIosWifi className='text-5xl text-white '/> 
+        </div>
         <h1 className="lg:text-4xl text-2xl font-bold text-[#b6252a]">Web Monitoring Jaringan</h1>
       </div>
       <Form {...form}>
@@ -77,7 +80,7 @@ export default function Register() {
           <FormField control={form.control} name="username"
             render={({ field }) => (
                 <FormItem>
-                <h1 className="text-lg font-semibold underline pb-2">Registrasi Akun Baru</h1>
+                <h1 className="text-lg font-semibold underline text-center pb-2">Registrasi Akun Baru</h1>
                 <FormLabel className="text-md">Username</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your username" {...field} />
@@ -97,7 +100,10 @@ export default function Register() {
               </FormItem>
             )}
           />
-          <Button className="bg-[#b6252a]" type="submit">Daftar</Button>
+        <div className="flex items-center justify-end">
+            <Button className="bg-[#b6252a]" type="submit">Daftar</Button>
+        </div>
+
         </form>
       </Form>
     </div>
