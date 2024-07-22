@@ -84,9 +84,6 @@ export default function MonitoringFKB({accessToken}) {
               <Button className='mr-2' asChild variant='outline'>
                   <Link href={`/monitoring/report/${row.original.objid}`}>Rekap Data</Link>
               </Button>
-              <Button onClick={() => openModalBandwith(row.original.idSNMP, row.original.idPing, row.original.idJitter)} variant='outline'>
-                  Grafik
-              </Button>
             
             </>
           )

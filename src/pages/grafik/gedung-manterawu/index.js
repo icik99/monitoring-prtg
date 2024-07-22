@@ -6,11 +6,9 @@ import { withSession } from '@/utils/sessionWrapper';
 import routeGuard from '@/utils/routeGuard';
 import ClientRequest from '@/utils/clientApiService';
 import Modal from '@/components/Modal';
-import axios from 'axios';
-import toast from 'react-hot-toast';
 import { Rings } from 'react-loader-spinner';
 
-export default function MonitoringFEB({accessToken}) {
+export default function GrafikManterawu({accessToken}) {
     const [data, setData] = useState([]);
     const [modalShowBandwith, setModalShowBandwith] = useState(false)
     const [dataSvgBandiwth, setDataSvgBandwith] = useState('')
@@ -34,55 +32,13 @@ export default function MonitoringFEB({accessToken}) {
         accessorKey: "ssid",
         header: "SSID",
       },
-      // {
-      //   accessorKey: "kecepatanDownload",
-      //   header: "Kecepatan Download",
-      //   cell: ({row}) => (
-      //     <h1>{convertToMbit(row.original.kecepatanDownload)} Mbit/S</h1>
-      //   )
-      // },
-      // {
-      //   accessorKey: "kecepatanUpload",
-      //   header: "Kecepatan Upload",
-      //   cell: ({row}) => (
-      //     <h1>{convertToMbit(row.original.kecepatanUpload)} Mbit/S</h1>
-      //   )
-      // },
-      {
-        accessorKey: "ping",
-        header: "Ping",
-        cell: ({row}) => (
-          <h1>{row.original.ping} Ms</h1>
-        )
-      },
-      {
-        accessorKey: "jitter",
-        header: "Jitter",
-        cell: ({row}) => (
-          <h1>{row.original.jitter} Ms</h1>
-        )
-      },
-      {
-        accessorKey: "presentaseKekuatanSinyal",
-        header: "Persentase Kekuatan Sinyal",
-        cell: ({row}) => (
-          <h1>{row.original.presentaseKekuatanSinyal || 0} %</h1>
-        )
-      },
-      {
-        accessorKey: "waktu",
-        header: "Waktu",
-        cell: ({row}) => (
-          <h1>{row.original.waktu || '-'}</h1>
-        )
-      },
       {
         id: "Actions",
         cell: ({row}) => {
           return(
             <>
-              <Button className='mr-2' asChild variant='outline'>
-                  <Link href={`/monitoring/report/${row.original.objid}`}>Rekap Data</Link>
+              <Button onClick={() => openModalBandwith(row.original.idSNMP, row.original.idPing, row.original.idJitter)} variant='outline'>
+                  Grafik
               </Button>
             
             </>
@@ -108,9 +64,8 @@ export default function MonitoringFEB({accessToken}) {
 
     const getSensor = async () => {
       try {
-          const res = await ClientRequest.GetDataMonitoring(accessToken, '2148') 
+          const res = await ClientRequest.GetDataMonitoring(accessToken, '2152') 
           setData(res.data.data)
-          console.log(res.data.data, 'DATA MONITORING')
       } catch (error) {
           console.log(error)
       }
@@ -154,7 +109,7 @@ export default function MonitoringFEB({accessToken}) {
         buttonClose={ () => setModalShowBandwith(!modalShowBandwith)}
         width={'1000px'}
         content= {
-            <div className='px-12 pb-10'>
+            <div className='px-12 pb-5'>
               <div className=''>
                 <h1 className='font-semibold'>Grafik Bandwith</h1>
                 <div dangerouslySetInnerHTML={{ __html: dataSvgBandiwth }} />
@@ -170,11 +125,11 @@ export default function MonitoringFEB({accessToken}) {
             </div>
         }
       />
-        <div className='space-y-11'>
+        <div className='space-y-11 pb-10'>
             <div className=''>
               <div className='flex items-center justify-center'>
                 <h1 className='mb-6 text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white  py-3 px-5 w-fit rounded-lg'>
-                  Monitoring Jaringan Gedung FEB
+                  Grafik Jaringan Gedung Manterawu
                 </h1>
               </div>
                 <DataTable columns={columns} data={data} />

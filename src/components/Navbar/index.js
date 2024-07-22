@@ -46,6 +46,13 @@ export default function Navbar() {
               <NavigationMenu>
                       <NavigationMenuList className='space-x-4'>
                           <NavigationMenuItem>
+                          <Link href="/home" legacyBehavior passHref>
+                              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                              <div className='text-md'>Home</div>
+                              </NavigationMenuLink>
+                          </Link>
+                          </NavigationMenuItem>
+                          <NavigationMenuItem>
                           <Link href="/dashboard" legacyBehavior passHref>
                               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                               <div className='text-md'>Dashboard</div>
@@ -94,6 +101,34 @@ export default function Navbar() {
                                       </DropdownMenuItem>
                                     </Link>
                                     <Link href={'/monitoring/gedung-manterawu'}>
+                                      <DropdownMenuItem>
+                                        Gedung Manterawu
+                                      </DropdownMenuItem>
+                                    </Link>
+                                  </DropdownMenuGroup>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                          </NavigationMenuItem>
+                          <NavigationMenuItem>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="outline">Grafik Jaringan</Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56">
+                                  <DropdownMenuLabel>Pilih Gedung</DropdownMenuLabel>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuGroup>
+                                    <Link href={'/grafik/gedung-feb'}>
+                                      <DropdownMenuItem>
+                                        Gedung FEB
+                                      </DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/grafik/gedung-fkb'}>
+                                      <DropdownMenuItem>
+                                        Gedung FKB
+                                      </DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/grafik/gedung-manterawu'}>
                                       <DropdownMenuItem>
                                         Gedung Manterawu
                                       </DropdownMenuItem>
