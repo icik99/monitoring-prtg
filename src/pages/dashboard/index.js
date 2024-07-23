@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { MdRouter, MdWifi } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
-import dynamic from 'next/dynamic';
 import { withSession } from '@/utils/sessionWrapper';
 import ClientRequest from '@/utils/clientApiService';
 import routeGuard from '@/utils/routeGuard';
@@ -18,7 +17,7 @@ export default function Dashboard({countDashboard, accessToken}) {
         const resGrafik1 = await ClientRequest.GetBandwith('2160', accessToken) // snmp manterawu
         const resGrafik2 = await ClientRequest.GetBandwith('2140', accessToken) // snmp fkb
         const resGrafik3 = await ClientRequest.GetBandwith('2192', accessToken) // ping feb
-        const resGrafik4 = await ClientRequest.GetBandwith('2186', accessToken)
+        const resGrafik4 = await ClientRequest.GetBandwith('2190', accessToken) // jitter feb
         setDataGrafik1(resGrafik1.data)
         setDataGrafik2(resGrafik2.data)
         setDataGrafik3(resGrafik3.data)
@@ -28,17 +27,12 @@ export default function Dashboard({countDashboard, accessToken}) {
       }
   }
 
-  const LeafletMap = useMemo(() => dynamic(
-    () => import('@/components/LeafletMap'),
-    { 
-        loading: () => <p>A map is loading</p>,
-        ssr: false
-    }
-  ), []);
 
+
+  //Kode Untuk Eksekusi Fungsi ketika halaman pertama kali di load
   useEffect(() => {
     getDataGrafik()
-  }, [])
+  }, []) // kurung siku kosong, untuk memastikan fungsinya cuma di eksekusi satu kali.
 
   return (
     <div className=''>
@@ -54,27 +48,24 @@ export default function Dashboard({countDashboard, accessToken}) {
         </div>
       </div>
       <section className='mt-10'>
-        {/* <h1 className='font-bold text-5xl mb-2 p-2'>Lokasi Server:</h1>
-        <div className='shadow-lg mb-40 border'>
-          <LeafletMap />
-        </div> */}
+        
         <div className='flex items-center gap-5 mb-3'>
           <div className='w-full'>
-            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Gedung Manterawu</h1>
+            <h1 className='font-semibold  text-white bg-red-800 rounded-lg p-2 mb-4'>Grafik Bandwith</h1>
             <div dangerouslySetInnerHTML={{ __html: dataGrafik1 }} />
           </div>
           <div className='w-full'>
-            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Gedung FKB</h1>
+            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Grafik Bandwith</h1>
             <div dangerouslySetInnerHTML={{ __html: dataGrafik2 }} />
           </div>
         </div>
         <div className='flex items-center gap-5'>
           <div className='w-full'>
-            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Gedung FEB</h1>
+            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Grafik Ping</h1>
             <div dangerouslySetInnerHTML={{ __html: dataGrafik3 }} />
           </div>
-          <div className='w-full pt-10'>
-            {/* <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white '></h1> */}
+          <div className='w-full'>
+            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4'>Grafik Jitter</h1>
             <div dangerouslySetInnerHTML={{ __html: dataGrafik4 }} />
           </div>
         </div>

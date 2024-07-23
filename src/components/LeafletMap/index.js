@@ -5,7 +5,7 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 const LeafletMap = () => {
-  const position = [-6.971720250604408, 107.63241608688661];
+  const position = [-6.975811791350922, 107.63062860490223];
 
   return (
     <div>
@@ -15,7 +15,7 @@ const LeafletMap = () => {
         />
         <Marker position={position}>
           <Popup>
-            Gedung Panambulai, Pusat Teknologi Informasi Telkom University
+            PuTI, Gedung Panambulai, Pusat Teknologi Informasi Telkom University
           </Popup>
         </Marker>
       </MapContainer>

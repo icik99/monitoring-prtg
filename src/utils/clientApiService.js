@@ -85,7 +85,7 @@ class ClientRequest {
 
     
     static GetBandwith(id,  token) {
-        let path = `get-svg?type=graph&graphid=0&id=${id}&graphstyling=showLegend%3D%271%27+baseFontSize%3D%275%27 `;
+        let path = `get-svg?type=graph&graphid=0&id=${id}&graphstyling=showLegend%3D%271%27+baseFontSize%3D%275%27`;
         return request(`${this.urlAPI}${path}`, {
             method: 'GET',
             headers: {

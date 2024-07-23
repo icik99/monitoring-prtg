@@ -4,6 +4,7 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 import Image from 'next/image';
 import Background from '../../../public/bgpage.png'
+import BackgroundHome from '../../../public/bghome.png'
 
 export default function Layout({ children }) {
     const router = useRouter();
@@ -18,16 +19,22 @@ export default function Layout({ children }) {
                 <div className='bg-white'>{children}</div>
             ) : (
                 <div className='w-full relative min-h-screen'>
-    <Image src={Background} alt="Background Login" layout="fill" objectFit="cover" className='z-0' />
+                    {router.pathname === '/home' ? (
 
-    <div className='relative z-10'>
-        <Navbar />
-        <div className=' px-12 pt-10 pb-2 min-h-screen'>
-            {children}
-        </div>
-        <Footer />
-    </div>
-</div>
+                        <Image src={BackgroundHome} alt="Background Home" layout="fill" objectFit="cover" className='z-0' />
+                    ): (
+
+                    <Image src={Background} alt="Background Login" layout="fill" objectFit="cover" className='z-0' />
+                    )}
+
+                    <div className='relative z-10'>
+                        <Navbar />
+                        <div className=' px-12 pt-10 pb-2 min-h-screen'>
+                            {children}
+                        </div>
+                        <Footer />
+                    </div>
+                </div>
 
             )}
         </div>

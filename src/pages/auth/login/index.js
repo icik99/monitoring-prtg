@@ -54,7 +54,7 @@ export default function LoginPage() {
           success: (res) => {
             if (res.status === 200) {
               console.log(res, 'response login');
-              router.push('/dashboard');
+              router.push('/home');
               return "Login Berhasil!"
             }
           },
