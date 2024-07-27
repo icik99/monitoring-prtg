@@ -74,15 +74,25 @@ export default function Dashboard({countDashboard, accessToken}) {
   );
 }
 
+
 export const getServerSideProps = withSession(async ({ req }) => {
-	const accessToken = req.session?.auth?.access_token
-  const res = await ClientRequest.CountDashboard(accessToken)
-	const isLoggedIn = !!accessToken
-	const validator = [isLoggedIn]
-	return routeGuard(validator, '/auth/login', {
-		props: {
+  const accessToken = req.session?.auth?.access_token;
+  const isLoggedIn = !!accessToken;
+
+  if (!isLoggedIn) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  } else{
+    const res = await ClientRequest.CountDashboard(accessToken)
+    return {
+      props: {
         countDashboard: res.data.data,
         accessToken
-    }
-	})
-})
+      },
+    };
+  }
+});

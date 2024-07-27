@@ -1,13 +1,17 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import LoginPage from "./auth/login";
+import routeGuard from '@/utils/routeGuard'
+import { withSession } from '@/utils/sessionWrapper'
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  return (
-    <>
-      <LoginPage />
-    </>
-  );
+const RedirectEmpty = () => {
+	return <></>
 }
+export default RedirectEmpty
+export const getServerSideProps = withSession(async ({ req }) => {
+	const accessToken = req.session?.auth?.access_token
+	const isLoggedIn = !!accessToken
+	return routeGuard([isLoggedIn], '/auth/login', {
+		redirect: {
+			destination: '/home',
+			permanent: false
+		}
+	})
+})
