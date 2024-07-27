@@ -16,6 +16,17 @@ export default function MonitoringFEB({accessToken}) {
     const [dataSvgBandiwth, setDataSvgBandwith] = useState('')
     const [dataSvgPing, setDataSvgPing] = useState('')
     const [dataSvgJitter, setDataSvgJitter] = useState('')
+    const [dataAp, setDataAp] = useState([]);
+
+  const getDataAksesPoin = async () => {
+    try {
+      const res = await axios.get('../dataAksesPoin.json')
+      setDataAp(res.data.FEB)
+      console.log(res.data.FEB)
+    } catch (error) {
+      
+    }
+  }
 
     const convertToMbit = (value) => {
       return (value / 1024).toFixed(2);
@@ -33,6 +44,10 @@ export default function MonitoringFEB({accessToken}) {
       {
         accessorKey: "ssid",
         header: "SSID",
+      },
+      {
+        accessorKey: "Location",
+        header: "Lokasi",
       },
       // {
       //   accessorKey: "kecepatanDownload",
@@ -114,12 +129,23 @@ export default function MonitoringFEB({accessToken}) {
       } catch (error) {
           console.log(error)
       }
-  }
+    }
+
+
+  const dataMonitoring = data.map(monitor => {
+    const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid);
+    return {
+        ...monitor,
+        Location: matchedAP ? matchedAP.Location : "Location not found"
+    };
+  });
+
   
   
 
   useEffect(() => {
     getSensor()
+    getDataAksesPoin()
 
     const intervalId = setInterval(() => {
       getSensor()
@@ -177,7 +203,7 @@ export default function MonitoringFEB({accessToken}) {
                   Monitoring Jaringan Gedung FEB
                 </h1>
               </div>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={dataMonitoring} />
             </div>
         </div>
       </>

@@ -17,9 +17,24 @@ export default function GrafikFEB({accessToken}) {
     const [dataSvgPing, setDataSvgPing] = useState('')
     const [dataSvgJitter, setDataSvgJitter] = useState('')
 
-    const convertToMbit = (value) => {
-      return (value / 1024).toFixed(2);
+    const [dataAp, setDataAp] = useState([]);
+
+  const getDataAksesPoin = async () => {
+    try {
+      const res = await axios.get('../dataAksesPoin.json')
+      setDataAp(res.data.FEB)
+    } catch (error) {
+      
+    }
+  }
+  
+  const dataMonitoring = data.map(monitor => {
+    const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid);
+    return {
+        ...monitor,
+        Location: matchedAP ? matchedAP.Location : "Location not found"
     };
+  });
 
     const columns = [
       {
@@ -33,6 +48,10 @@ export default function GrafikFEB({accessToken}) {
       {
         accessorKey: "ssid",
         header: "SSID",
+      },
+      {
+        accessorKey: "Location",
+        header: "Lokasi",
       },
       {
         id: "Actions",
@@ -77,6 +96,7 @@ export default function GrafikFEB({accessToken}) {
 
   useEffect(() => {
     getSensor()
+    getDataAksesPoin()
 
     const intervalId = setInterval(() => {
       getSensor()
@@ -134,7 +154,7 @@ export default function GrafikFEB({accessToken}) {
                   Grafik Jaringan Gedung FEB
                 </h1>
               </div>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={dataMonitoring} />
             </div>
         </div>
       </>

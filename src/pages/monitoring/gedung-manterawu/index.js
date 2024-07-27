@@ -7,6 +7,7 @@ import routeGuard from '@/utils/routeGuard';
 import ClientRequest from '@/utils/clientApiService';
 import Modal from '@/components/Modal';
 import { Rings } from 'react-loader-spinner';
+import axios from 'axios';
 
 export default function MonitoringManterawu({accessToken}) {
     const [data, setData] = useState([]);
@@ -14,6 +15,25 @@ export default function MonitoringManterawu({accessToken}) {
     const [dataSvgBandiwth, setDataSvgBandwith] = useState('')
     const [dataSvgPing, setDataSvgPing] = useState('')
     const [dataSvgJitter, setDataSvgJitter] = useState('')
+    const [dataAp, setDataAp] = useState([]);
+
+    const getDataAksesPoin = async () => {
+      try {
+        const res = await axios.get('../dataAksesPoin.json')
+        setDataAp(res.data.MANTERAWU)
+      } catch (error) {
+        
+      }
+    }
+
+    const dataMonitoring = data.map(monitor => {
+      const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid);
+      return {
+          ...monitor,
+          Location: matchedAP ? matchedAP.Location : "Location not found"
+      };
+    });
+
 
     const convertToMbit = (value) => {
       return (value / 1024).toFixed(2);
@@ -31,6 +51,10 @@ export default function MonitoringManterawu({accessToken}) {
       {
         accessorKey: "ssid",
         header: "SSID",
+      },
+      {
+        accessorKey: "Location",
+        header: "Lokasi",
       },
       {
         accessorKey: "kecepatanDownload",
@@ -108,7 +132,6 @@ export default function MonitoringManterawu({accessToken}) {
       try {
           const res = await ClientRequest.GetDataMonitoring(accessToken, '2152') 
           setData(res.data.data)
-          console.log(res, 'resdata')
       } catch (error) {
           console.log(error)
       }
@@ -118,10 +141,10 @@ export default function MonitoringManterawu({accessToken}) {
 
   useEffect(() => {
     getSensor()
-
+    getDataAksesPoin()
     const intervalId = setInterval(() => {
       getSensor()
-    }, 300000) // trigger tiap 5 menit
+    }, 300000) 
 
     return () => clearInterval(intervalId)
   }, [])
@@ -175,7 +198,7 @@ export default function MonitoringManterawu({accessToken}) {
                   Monitoring Jaringan Gedung Manterawu
                 </h1>
               </div>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={dataMonitoring} />
             </div>
         </div>
       </>

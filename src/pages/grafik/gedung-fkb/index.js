@@ -16,10 +16,25 @@ export default function GrafikFKB({accessToken}) {
     const [dataSvgBandiwth, setDataSvgBandwith] = useState('')
     const [dataSvgPing, setDataSvgPing] = useState('')
     const [dataSvgJitter, setDataSvgJitter] = useState('')
+    const [dataAp, setDataAp] = useState([]);
 
-    const convertToMbit = (value) => {
-      return (value / 1024).toFixed(2);
+  const getDataAksesPoin = async () => {
+    try {
+      const res = await axios.get('../dataAksesPoin.json')
+      setDataAp(res.data.FKB)
+    } catch (error) {
+      
+    }
+  }
+  
+  const dataMonitoring = data.map(monitor => {
+    const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid);
+    return {
+        ...monitor,
+        Location: matchedAP ? matchedAP.Location : "Location not found"
     };
+  });
+
 
     const columns = [
       {
@@ -33,6 +48,10 @@ export default function GrafikFKB({accessToken}) {
       {
         accessorKey: "ssid",
         header: "SSID",
+      },
+      {
+        accessorKey: "Location",
+        header: "Lokasi",
       },
       {
         id: "Actions",
@@ -77,6 +96,7 @@ export default function GrafikFKB({accessToken}) {
 
   useEffect(() => {
     getSensor()
+    getDataAksesPoin()
 
     const intervalId = setInterval(() => {
       getSensor()
@@ -133,7 +153,7 @@ export default function GrafikFKB({accessToken}) {
                   Grafik Jaringan Gedung FKB
                 </h1>
               </div>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={dataMonitoring} />
             </div>
         </div>
       </>

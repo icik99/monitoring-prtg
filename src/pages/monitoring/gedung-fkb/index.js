@@ -17,6 +17,25 @@ export default function MonitoringFKB({accessToken}) {
     const [dataSvgPing, setDataSvgPing] = useState('')
     const [dataSvgJitter, setDataSvgJitter] = useState('')
 
+  const [dataAp, setDataAp] = useState([]);
+
+  const getDataAksesPoin = async () => {
+    try {
+      const res = await axios.get('../dataAksesPoin.json')
+      setDataAp(res.data.FKB)
+    } catch (error) {
+      
+    }
+  }
+
+  const dataMonitoring = data.map(monitor => {
+    const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid);
+    return {
+        ...monitor,
+        Location: matchedAP ? matchedAP.Location : "Location not found"
+    };
+  });
+
     const convertToMbit = (value) => {
       return (value / 1024).toFixed(2);
     };
@@ -33,6 +52,10 @@ export default function MonitoringFKB({accessToken}) {
       {
         accessorKey: "ssid",
         header: "SSID",
+      },
+      {
+        accessorKey: "Location",
+        header: "Lokasi",
       },
       {
         accessorKey: "kecepatanDownload",
@@ -120,6 +143,7 @@ export default function MonitoringFKB({accessToken}) {
 
   useEffect(() => {
     getSensor()
+    getDataAksesPoin()
 
     const intervalId = setInterval(() => {
       getSensor()
@@ -176,7 +200,7 @@ export default function MonitoringFKB({accessToken}) {
                   Monitoring Jaringan Gedung FKB
                 </h1>
               </div>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={dataMonitoring} />
             </div>
         </div>
       </>
