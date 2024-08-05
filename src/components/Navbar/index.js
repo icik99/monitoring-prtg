@@ -46,7 +46,7 @@ export default function Navbar() {
                     <Link href="/dashboard" className="text-white text-md">Dashboard</Link>
                     <div className="relative group">
                         <button className="text-white text-md">Akses Poin Tersedia</button>
-                        <div className="absolute hidden group-hover:block bg-white text-black rounded-md shadow-md mt-2 p-4 w-[200px] space-y-2">
+                        <div className="absolute hidden group-hover:block bg-white text-black rounded-md shadow-md p-4 w-[200px] space-y-2">
                             <Link href="/akses-poin/gedung-feb" className="block py-1 px-1 ">Gedung FEB</Link>
                             <Link href="/akses-poin/gedung-fkb" className="block py-1 px-1 ">Gedung FKB</Link>
                             <Link href="/akses-poin/gedung-manterawu" className="block py-1 px-1 ">Gedung Manterawu</Link>
@@ -54,7 +54,7 @@ export default function Navbar() {
                     </div>
                     <div className="relative group">
                         <button className="text-white text-md">Monitoring Jaringan</button>
-                        <div className="absolute hidden group-hover:block bg-white text-black rounded-md shadow-md mt-2 p-4  w-[200px] space-y-2">
+                        <div className="absolute hidden group-hover:block bg-white text-black rounded-md shadow-md p-4  w-[200px] space-y-2">
                             <Link href="/monitoring/gedung-feb" className="block py-1 px-1 ">Gedung FEB</Link>
                             <Link href="/monitoring/gedung-fkb" className="block py-1 px-1 ">Gedung FKB</Link>
                             <Link href="/monitoring/gedung-manterawu" className="block py-1 px-1 ">Gedung Manterawu</Link>
@@ -62,7 +62,7 @@ export default function Navbar() {
                     </div>
                     <div className="relative group">
                         <button className="text-white text-md">Grafik Jaringan</button>
-                        <div className="absolute hidden group-hover:block bg-white text-black rounded-md shadow-md mt-2 p-4  w-[200px] space-y-2">
+                        <div className="absolute hidden group-hover:block bg-white text-black rounded-md shadow-md p-4  w-[200px] space-y-2">
                             <Link href="/grafik/gedung-feb" className="block py-1 px-1 ">Gedung FEB</Link>
                             <Link href="/grafik/gedung-fkb" className="block py-1 px-1 ">Gedung FKB</Link>
                             <Link href="/grafik/gedung-manterawu" className="block py-1 px-1 ">Gedung Manterawu</Link>
