@@ -36,41 +36,41 @@ export default function Dashboard({countDashboard, accessToken}) {
 
   return (
     <div className=''>
-      <div className='flex items-center justify-center gap-9'>
-        <div className="lg:w-[full] w-full border-b-[#b6252a] border-b-[15px] h-[160px] rounded-lg border p-[30px] bg-white shadow">
-          <div className="flex items-center h-full justify-between gap-3">
-            <div className='flex items-center justify-center gap-3'>
-              <MdWifi className='text-5xl text-[#b6252a]'/>
-              <h1 className="font-bold text-2xl">Akses Poin Terhubung</h1>
-            </div>
-            <h1 className="font-bold text-5xl">{countDashboard.countRouter}</h1>
-          </div>
+  <div className='flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-9'>
+    <div className="w-full lg:w-[full] border-b-[#b6252a] border-b-[15px] h-[160px] rounded-lg border p-[20px] lg:p-[30px] bg-white shadow">
+      <div className="flex items-center h-full justify-between gap-3">
+        <div className='flex items-center justify-center gap-3'>
+          <MdWifi className='text-4xl lg:text-5xl text-[#b6252a]'/>
+          <h1 className="font-bold text-xl lg:text-2xl">Akses Poin Terhubung</h1>
         </div>
+        <h1 className="font-bold text-4xl lg:text-5xl">{countDashboard.countRouter}</h1>
       </div>
-      <section className='mt-10'>
-        
-        <div className='flex items-center gap-5 mb-3'>
-          <div className='w-full'>
-            <h1 className='font-semibold  text-white bg-red-800 rounded-lg p-2 mb-4'>Grafik Bandwith</h1>
-            <div dangerouslySetInnerHTML={{ __html: dataGrafik1 }} />
-          </div>
-          <div className='w-full'>
-            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Grafik Bandwith</h1>
-            <div dangerouslySetInnerHTML={{ __html: dataGrafik2 }} />
-          </div>
-        </div>
-        <div className='flex items-center gap-5'>
-          <div className='w-full'>
-            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 '>Grafik Ping</h1>
-            <div dangerouslySetInnerHTML={{ __html: dataGrafik3 }} />
-          </div>
-          <div className='w-full'>
-            <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4'>Grafik Jitter</h1>
-            <div dangerouslySetInnerHTML={{ __html: dataGrafik4 }} />
-          </div>
-        </div>
-      </section>
     </div>
+  </div>
+  <section className='mt-10'>
+    <div className='flex flex-col lg:flex-row items-center gap-5 lg:mb-3'>
+      <div className='w-full'>
+        <h1 className='font-semibold text-white bg-red-800 rounded-lg p-2 mb-4 text-center lg:text-left'>Grafik Bandwidth</h1>
+        <div dangerouslySetInnerHTML={{ __html: dataGrafik1 }} />
+      </div>
+      <div className='w-full'>
+        <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 text-center lg:text-left'>Grafik Bandwidth</h1>
+        <div dangerouslySetInnerHTML={{ __html: dataGrafik2 }} />
+      </div>
+    </div>
+    <div className='flex flex-col lg:flex-row items-center gap-5'>
+      <div className='w-full'>
+        <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 text-center lg:text-left'>Grafik Ping</h1>
+        <div dangerouslySetInnerHTML={{ __html: dataGrafik3 }} />
+      </div>
+      <div className='w-full'>
+        <h1 className='font-semibold bg-red-800 p-2 rounded-lg text-white mb-4 text-center lg:text-left'>Grafik Jitter</h1>
+        <div dangerouslySetInnerHTML={{ __html: dataGrafik4 }} />
+      </div>
+    </div>
+  </section>
+</div>
+
   );
 }
 

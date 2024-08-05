@@ -58,16 +58,19 @@ export default function AksesPoinFEB({accessToken}) {
   }, []);
 
     return (
-        <div className='space-y-11 pb-10'>
-            <div className=''>
-                <div className='flex items-center justify-center'>
-                  <h1 className='mb-6 text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white  py-3 px-5 w-fit rounded-lg'>
-                    Akses Poin Gedung FEB
+      <div className='space-y-11 pb-10'>
+          <div>
+              <div className='flex items-center justify-center'>
+                  <h1 className='mb-6 text-xl lg:text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white py-2 lg:py-3 px-4 lg:px-5 w-fit rounded-lg'>
+                      Akses Poin Gedung FEB
                   </h1>
-                </div>
-                <DataTable columns={kolomGedungFEB} data={data} />
-            </div>
-        </div>
+              </div>
+              <div className='overflow-x-auto'>
+                  <DataTable columns={kolomGedungFEB} data={data} />
+              </div>
+          </div>
+      </div>
+  
     );
 }
 

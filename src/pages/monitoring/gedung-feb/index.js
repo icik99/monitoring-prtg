@@ -28,9 +28,6 @@ export default function MonitoringFEB({accessToken}) {
     }
   }
 
-    const convertToMbit = (value) => {
-      return (value / 1024).toFixed(2);
-    };
 
     const columns = [
       {
@@ -121,7 +118,7 @@ export default function MonitoringFEB({accessToken}) {
     }
 
 
-    const getSensor = async () => {
+    const getSensor = async () => { // untuk ambil data monitoring
       try {
           const res = await ClientRequest.GetDataMonitoring(accessToken, '2148') 
           setData(res.data.data)
@@ -133,7 +130,7 @@ export default function MonitoringFEB({accessToken}) {
 
 
   const dataMonitoring = data.map(monitor => {
-    const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid);
+    const matchedAP = dataAp.find(ap => ap.SSID === monitor.ssid); // data akses poin akan mencari ssid yg sama
     return {
         ...monitor,
         Location: matchedAP ? matchedAP.Location : "Location not found"
@@ -199,7 +196,7 @@ export default function MonitoringFEB({accessToken}) {
         <div className='space-y-11'>
             <div className=''>
               <div className='flex items-center justify-center'>
-                <h1 className='mb-6 text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white  py-3 px-5 w-fit rounded-lg'>
+                <h1 className='mb-6 text-xl lg:text-3xl font-bold bg-gradient-to-r from-red-800 to-red-700 text-white py-2 lg:py-3 px-4 lg:px-5 w-fit rounded-lg'>
                   Monitoring Jaringan Gedung FEB
                 </h1>
               </div>

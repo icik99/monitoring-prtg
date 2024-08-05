@@ -42,7 +42,6 @@ export default function LoginPage() {
 
   function onSubmit(data) {
     const {username, password} = data
-
     try {
       toast.promise(
         axios.request({
